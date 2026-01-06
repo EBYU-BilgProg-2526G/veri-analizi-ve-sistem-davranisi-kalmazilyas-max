@@ -15,19 +15,22 @@ REPORT_PATH = "report/report.md"
 FIG_PATH = "report/figures/time_signal.png"
 
 # -------------------- Görev 1 — Veri Okuma --------------------
-def read_csv_signal(path):
-    t_values = []
-    x_values = []
+import csv
+import numpy as np
+def load_signal_csv(path):
+    t = []
+    x = []
 
     with open(path, newline='', encoding="utf-8") as f:
         reader = csv.reader(f)
         next(reader)  # başlığı geç
         for row in reader:
             if len(row) >= 2:
-                t_values.append(float(row[0]))
-                x_values.append(float(row[1]))
-
-    return np.array(t_values), np.array(x_values)
+                t.append(float(row[0]))
+                x.append(float(row[1]))
+    return np.array(t), np.array(x)
+t, x = load_signal_csv("kayit.csv")
+print(load_signal_csv("kayit.csv")) 
 
 # -------------------- Görev 2 — Temel Analiz --------------------
 def compute_basic_stats(x):
@@ -82,7 +85,7 @@ def write_report(stats, fs, dt):
         f.write(f"- Δt = {dt:.6f} s\n")
         f.write(f"- fs = {fs:.2f} Hz\n")
         f.write("\n## Grafik\n- report/figures/time_signal.png\n")
-
+"""
 # -------------------- Ana Program --------------------
 def main():
     t, x = read_csv_signal(DATA_PATH)
@@ -99,4 +102,4 @@ def main():
 
 if __name__ == "__main__":
     main()
-
+"""
